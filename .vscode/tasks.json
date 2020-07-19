@@ -1,0 +1,37 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Compile plugins",
+            "type": "shell",
+            "command": "${config:sourcepawnLanguageServer.sourcemod_home}/../spcomp64",
+            "args": [
+                "${workspaceFolder}/scripting/*.sp",
+                "-i${config:sourcepawnLanguageServer.sourcemod_home}",
+                "-i${workspaceFolder}/scripting/include",
+                "-D${workspaceFolder}/plugins"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ],
+    "problemMatcher": {
+        // https://github.com/alliedmodders/sourcepawn/commit/439c2ea1eba6f425ff11d00e589db2d0c0b65263
+        // https://github.com/JulienKluge/Spedit/blob/e8d1a70a9baecf1ec2c9c6659320ad33c542805c/UI/MainWindowSPCompiler.cs#L88
+        "owner": "sourcepawn",
+        "fileLocation": "autoDetect",
+        "pattern": {
+            "regexp": "^(.+?)\\(([0-9]+)(?:\\s--\\s([0-9]+))?\\)\\s:\\s(warning|error|fatal\\serror)\\s([0-9]{3}):\\s(.+)$",
+            "file": 1,
+            "line": 2,
+            "endLine": 3,
+            "severity": 4,
+            "code": 5,
+            "message": 6,
+        }
+    }
+}
